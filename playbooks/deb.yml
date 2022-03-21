@@ -30,5 +30,5 @@
       become: yes
 
     - name: Install mico-client
-      shell:  dpkg -s mico-client  || echo mico mico/server_url string "https://{{ mico_server }}:7779" | sudo debconf-set-selections | sudo apt-get install /tmp/DEBS/mico-setup.deb -y
+      shell:  dpkg -s mico-client  || echo mico mico/server_url string "https://{{ mico_server }}:7779" | sudo debconf-set-selections | sudo apt-get install /tmp/DEBS/mico.deb -y
       become: yes
