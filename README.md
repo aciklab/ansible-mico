@@ -12,7 +12,7 @@
 - Mico'nun rpm uzantılı paketleri /opt/ansible-micofiles/rpm/ dizini altına atılır
   ![rpm](https://user-images.githubusercontent.com/11041014/159277171-27d1bd95-41b1-49ca-b375-bb1c936ce321.png)
   
-- inventory/hosts dosyası içerisine miço ajanı kurulacak makinelerin ip adresi, yetkili kullanıcısı gibi bilgiler eklenir.
+- /opt/ansible-mico/inventory/hosts dosyası içerisine miço ajanı kurulacak makinelerin ip adresi, yetkili kullanıcısı gibi bilgiler eklenir.
   ```
   [Rpm]
   192.168.5.10 ansible_ssh_user=root ansible_ssh_pass=1
@@ -23,16 +23,18 @@
   ```
   RPM tabanlı makineler [rpm] başlığı altına örnekteki gibi eklenir.
   Debian tabanlı makineler [deb] başlığı altına örnekteki gibi eklenir.
-- vars/mico-vars.yml dosyası içerisine mico sunucusunun ip adresi yazılır
+- /opt/ansible-mico/vars/mico-vars.yml dosyası içerisine mico sunucusunun ip adresi yazılır
   ```
   mico_server: "192.168.5.4"
   ```
 ## Kullanım
 - Debian tabanlı işletim sistemlerine dağıtım için aşağıdaki komut çalıştırılır
   ```
-  ansible-playbook playbooks/deb.yml 
+  cd /opt/ansible-mico/
+  ansible-playbook /opt/ansible-mico/playbooks/deb.yml 
   ```
 - RPM tabanlı işletim sistemlerine dağıtım için aşağıdaki komut çalıştırılır
   ```
+  cd /opt/ansible-mico/
   ansible-playbook playbooks/rpm.yml
   ```
