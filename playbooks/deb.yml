@@ -1,0 +1,34 @@
+- hosts: deb
+  
+  tasks: 
+    - include_vars: ../vars/mico-vars.yml
+    - name: find the mico file name
+      connection: local
+      shell: "ls -t ../files/deb/*mico*.deb | head -1"
+      register: mico_deb_file
+
+    - name: find the osquery file name
+      connection: local
+      shell: "ls -t ../files/deb/*osquery*.deb | head -1"
+      register: osquery_deb_file
+
+    - name: mkdir /tmp/DEBS
+      file: path=/tmp/DEBS state=directory
+    
+    - name: Copy Osquery deb file
+      copy:
+        src: "{{ osquery_deb_file.stdout }}"
+        dest: /tmp/DEBS/osquery.deb
+
+    - name: Copy Mico deb file 
+      copy:
+        src: "{{ mico_deb_file.stdout }}"
+        dest: /tmp/DEBS/mico.deb
+    
+    - name: Install osquery
+      shell: dpkg -s mico-client  || sudo apt-get install /tmp/DEBS/osquery.deb -y
+      become: yes
+
+    - name: Install mico-client
+      shell:  dpkg -s mico-client  || echo mico mico/server_url string "https://{{ mico_server }}:7779" | sudo debconf-set-selections | sudo apt-get install /tmp/DEBS/mico-setup.deb -y
+      become: yes

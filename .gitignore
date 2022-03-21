@@ -1,0 +1,3 @@
+files/deb/*.deb
+files/rpm/*.rpm
+backups/

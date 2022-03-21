@@ -1,0 +1,11 @@
+---
+ - name: "Playbook to test the inventory_hostname and ansible_hostname"
+   hosts: all
+   tasks:
+    - name: Get hostname
+      shell: hostname
+      register: result
+
+    - name: Print the var
+      debug:
+        var: result.stdout

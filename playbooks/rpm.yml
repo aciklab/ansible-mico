@@ -1,0 +1,33 @@
+- hosts: rpm
+  tasks: 
+    - include_vars: ../vars/mico-vars.yml
+    - name: find the mico file name
+      connection: local
+      shell: "ls -t ../files/rpm/*mico*.rpm | head -1"
+      register: mico_rpm_file
+
+    - name: find the osquery file name
+      connection: local
+      shell: "ls -t ../files/rpm/*osquery*.rpm | head -1"
+      register: osquery_rpm_file
+
+    - name: mkdir /tmp/RPMS
+      file: path=/tmp/RPMS state=directory
+    
+    - name: Copy Osquery rpm file
+      copy:
+        src: "{{ osquery_rpm_file.stdout }}"
+        dest: /tmp/RPMS/osquery.rpm
+
+    - name: Copy Mico rpm file 
+      copy:
+        src: "{{ mico_rpm_file.stdout }}"
+        dest: /tmp/RPMS/mico.rpm
+    
+    - name: Install osquery
+      shell: rpm -qi osquery  || sudo yum install /tmp/RPMS/osquery.rpm -y
+      become: yes
+
+    - name: Install mico-client
+      shell:  rpm -qi mico-client || SERVER_URL="https://{{ mico_server }}:7779" sudo yum install /tmp/RPMS/mico.rpm -y
+      become: yes

@@ -1,0 +1,6 @@
+[rpm]
+192.168.5.10 ansible_ssh_user=root ansible_ssh_pass=1
+
+
+[deb]
+192.168.5.11 ansible_ssh_user=test ansible_ssh_pass=1 ansible_sudo_pass=1
