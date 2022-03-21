@@ -7,7 +7,11 @@
   cd ansible-mico
   ```
 - Mico'nun deb uzantılı paketleri /opt/ansible-mico/files/deb dizini altına atılır  
+  ![deb](https://user-images.githubusercontent.com/11041014/159276912-f69bb0f4-a9bd-487f-a986-10f3a3c534b1.png)
+
 - Mico'nun rpm uzantılı paketleri /opt/ansible-micofiles/rpm/ dizini altına atılır
+  ![rpm](https://user-images.githubusercontent.com/11041014/159277171-27d1bd95-41b1-49ca-b375-bb1c936ce321.png)
+  
 - inventory/hosts dosyası içerisine miço ajanı kurulacak makinelerin ip adresi, yetkili kullanıcısı gibi bilgiler eklenir.
   ```
   [Rpm]
