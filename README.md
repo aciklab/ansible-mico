@@ -11,12 +11,19 @@
 
 - Mico'nun rpm uzantılı paketleri /opt/ansible-micofiles/rpm/ dizini altına atılır
   ![rpm](https://user-images.githubusercontent.com/11041014/159277171-27d1bd95-41b1-49ca-b375-bb1c936ce321.png)
+
+- Ansible'in hedef RPM makinede (192.168.5.10 IP adresli makinede) /usr/bin/python3 konumunda Python3'ü kurduğuna emin olunmalıdır.
+ ```
+ sudo yum install python3
+ which python3
+ ```
+Bu genellikle /usr/bin/python3 olarak dönecektir.
   
-- /opt/ansible-mico/inventory/hosts dosyası içerisine miço ajanı kurulacak makinelerin ip adresi, yetkili kullanıcısı gibi bilgiler eklenir.
+- /opt/ansible-mico/inventory/hosts dosyası içerisine miço ajanı kurulacak makinelerin ip adresi, yetkili kullanıcısı gibi bilgiler eklenir. (Python yolunu Ansible'a belirtilir.)
   ```
   [Rpm]
   192.168.5.10 ansible_ssh_user=root ansible_ssh_pass=1
-
+  192.168.5.10 ansible_python_interpreter=/usr/bin/python3
 
   [deb]
   192.168.5.11 ansible_ssh_user=test ansible_ssh_pass=1 ansible_sudo_pass=1
